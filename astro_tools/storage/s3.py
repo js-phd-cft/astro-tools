@@ -3,7 +3,7 @@ import os
 from io import BytesIO
 
 class S3Backend:
-       def __init__(self, bucket=None, prefix='', endpoint_url=None, 
+    def __init__(self, bucket=None, prefix='', endpoint_url=None, 
                  aws_access_key_id=None, aws_secret_access_key=None):
         """
         Args:
