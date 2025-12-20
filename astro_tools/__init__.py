@@ -21,5 +21,5 @@ __all__ = [
     "query_scalar", 
     "get_connection",
     # loggimg
-    "get_logger"
+    "get_logger",
 ]
