@@ -4,7 +4,23 @@ from astropy.io import fits
 from astropy.coordinates import SkyCoord
 import numpy as np
 
-def make_cutout(fits_path, ra, dec, size, mode='partial', extension=0):
+from functools import lru_cache
+
+@lru_cache(maxsize=8) 
+def get_fits_and_wcs(path, extension=0):
+    """
+    Returns:
+        data : numpy memmap
+        wcs  : astropy.wcs.WCS
+    """
+    hdul = fits.open(path, memmap=True)
+    hdu = hdul[extension]
+    wcs = WCS(hdu.header)
+    return hdu.data, wcs
+
+
+
+def make_cutout(data, wcs, ra, dec, size, mode='strict', extension=0):
     """
     Create cutout from FITS file
     
@@ -28,12 +44,12 @@ def make_cutout(fits_path, ra, dec, size, mode='partial', extension=0):
     
     coord = SkyCoord(ra, dec, unit='deg')
     
-    with fits.open(fits_path) as hdul:
-        data = hdul[extension].data
-        wcs = WCS(hdul[extension].header)
-        cutout = Cutout2D(data, coord, size, wcs=wcs, mode=mode)
+    # with fits.open(fits_path) as hdul:
+    #     data = hdul[extension].data
+    #     wcs = WCS(hdul[extension].header)
+    #     cutout = 
     
-    return cutout
+    return Cutout2D(data, coord, size, wcs=wcs, mode=mode, copy=False)
 
 
 def check_coord_inside_fits(fits_path, ra, dec, extension=0):

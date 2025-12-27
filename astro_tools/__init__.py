@@ -1,6 +1,6 @@
 """Astronomy utilities for strong lensing pipeline"""
 from .storage import S3Backend, FileBackend
-from .cutout import make_cutout, check_coord_inside_fits
+from .cutout import get_fits_and_wcs, make_cutout, check_coord_inside_fits
 from .plotting import plot_cutout
 from .db_utils import query, query_df, query_scalar, get_connection
 from .logging import get_logger
