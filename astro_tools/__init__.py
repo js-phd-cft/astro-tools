@@ -11,6 +11,7 @@ __all__ = [
     "S3Backend", 
     "FileBackend",
     # Cutout
+    "get_fits_and_wcs",
     "make_cutout", 
     "check_coord_inside_fits",
     # Plotting

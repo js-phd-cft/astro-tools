@@ -2,11 +2,16 @@
 import sys
 import logging
 from logging_loki import LokiHandler
+import os
 
 def get_logger(name: str, level: str = "INFO", loki_url: str = None):
     logger = logging.getLogger(name)
     logger.setLevel(level)
-           
+
+        # Get SLURM context
+    slurm_job_id = os.getenv('SLURM_JOB_ID', 'local')
+    slurm_task_id = os.getenv('SLURM_ARRAY_TASK_ID', 'N/A')
+
     if not logger.handlers:
         # Console
         handler = logging.StreamHandler(sys.stdout)
@@ -24,6 +29,8 @@ def get_logger(name: str, level: str = "INFO", loki_url: str = None):
             )
             logger.addHandler(loki)
     
+
+
     return logger
 
 # Użycie

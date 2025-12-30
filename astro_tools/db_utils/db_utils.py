@@ -2,6 +2,8 @@
 from sqlalchemy import create_engine, text
 from contextlib import contextmanager
 import os
+import os
+import pandas as pd
 
 db_user = os.environ.get('DB_USER')
 db_password = os.environ.get('DB_PASSWORD')
